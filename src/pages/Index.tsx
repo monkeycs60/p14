@@ -150,7 +150,6 @@ const Index = () => {
 						/>
 						{errors.zipCode && <p>Zip code must be a positive number</p>}
 					</fieldset>
-
 					<SelectOptions
 						label='Department'
 						name='department'

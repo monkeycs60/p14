@@ -40,7 +40,7 @@ const SelectOptions = ({
 							onChange={handleOnChange}
 							onBlur={field.onBlur}
 							options={options}
-							id={name}
+							inputId={name}
 						/>
 					);
 				}}

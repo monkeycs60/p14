@@ -13,7 +13,7 @@ export const DatePickerComponent = ({
 	name,
 }: DatePickerProps) => {
 	return (
-		<div>
+		<div className='flex flex-col'>
 			<label htmlFor={name}>{label}</label>
 			<Controller
 				name={name}
@@ -26,6 +26,7 @@ export const DatePickerComponent = ({
 						onChange={(date: Date) => field.onChange(date)}
 						dateFormat='MM/dd/yyyy'
 						id={name}
+						className='w-2/3 rounded-sm border-[1px] border-black indent-1'
 					/>
 				)}
 			/>

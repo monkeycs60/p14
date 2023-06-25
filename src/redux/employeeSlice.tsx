@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { EmployeeDetails } from '../types/Employee';
+import { FormInputsTypes } from '../types/Form';
 
 // Define the initial state using that type
-const initialState: EmployeeDetails = {
+const initialState: FormInputsTypes = {
 	firstName: '',
 	lastName: '',
-	birthDate: '',
-	startDate: '',
+	birthDate: null,
+	startDate: null,
 	street: '',
 	city: '',
 	state: '',
@@ -18,7 +18,7 @@ export const employeeSlice = createSlice({
 	name: 'employee',
 	initialState,
 	reducers: {
-		setEmployeeInfo: (state, action: PayloadAction<EmployeeDetails>) => {
+		setEmployeeInfo: (state, action: PayloadAction<FormInputsTypes>) => {
 			state.firstName = action.payload.firstName;
 			state.lastName = action.payload.lastName;
 			state.birthDate = action.payload.birthDate;
@@ -28,7 +28,7 @@ export const employeeSlice = createSlice({
 			state.state = action.payload.state;
 			state.zipCode = action.payload.zipCode;
 			state.department = action.payload.department;
-		}
+		},
 	},
 });
 

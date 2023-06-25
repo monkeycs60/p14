@@ -1,170 +1,179 @@
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { DatePickerComponent } from '../components/datePicker';
+import { DatePickerComponent } from '../components/DatePicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import SelectOptions from '../components/SelectOptions';
 import { departmentOptions } from '../lib/departmentOptions';
 import { stateOptions } from '../lib/stateOptions';
-
-const schema = z
-	.object({
-		firstName: z
-			.string()
-			.nonempty()
-			.min(3, 'First name must be at least 3 characters long')
-			.max(8, 'First name must be at most 8 characters long')
-			.refine(
-				(value) => value.trim().length !== 0,
-				'First name is required'
-			),
-		lastName: z
-			.string()
-			.nonempty()
-			.min(3, 'Last name must be at least 3 characters long')
-			.max(8, 'Last name must be at most 8 characters long')
-			.refine((value) => value.trim().length !== 0, 'Last name is required'),
-		birthDate: z
-			.date()
-			.refine((value) => value !== undefined, 'Birth date is required'),
-		startDate: z
-			.date()
-			.refine((value) => value !== undefined, 'Start date is required'),
-		street: z.string().nonempty(),
-		city: z.string().nonempty(),
-		state: z.string().nonempty(),
-		zipCode: z
-			.string()
-			.nonempty('Zip code is required')
-			.refine((value) => {
-				const number = parseInt(value, 10);
-				return !Number.isNaN(number) && number > 0;
-			}, 'Zip code must be a positive number'),
-		department: z.string().nonempty(),
-	})
-	.required();
-
-type EmployeeDetails = z.infer<typeof schema>;
+import 'react-ts-modal-cserizay/src/styles/modalWindow.css';
+import { ModalWindow } from 'react-ts-modal-cserizay/dist/cjs/components/ModalWindow';
+import { useState } from 'react';
+import { FormInputsTypes, FormSchema } from '../types/Form';
 
 const Index = () => {
+	const [isOpen, setIsOpen] = useState(false);
+	const openModal = () => setIsOpen(true);
+	const closeModal = () => setIsOpen(false);
+
+	console.log(isOpen);
+
 	const {
 		handleSubmit,
 		control,
 		formState: { errors },
-	} = useForm<EmployeeDetails>({
-		resolver: zodResolver(schema),
+	} = useForm<FormInputsTypes>({
+		resolver: zodResolver(FormSchema),
 	});
 
-	const onSubmit = (data: EmployeeDetails) => {
+	const onSubmit = (data: FormInputsTypes) => {
 		console.log(data);
+		openModal();
 	};
 
 	return (
-		<div className='max-w-7xl m-auto w-1/2 flex flex-col bg-zinc-400 justify-center items-center'>
-			<div className='title'>
-				<h1>HRnet</h1>
-			</div>
-			<div className='container'>
-				<a href='employee-list.html'>View Current Employees</a>
-				<h2>Create Employee</h2>
-				<form onSubmit={handleSubmit(onSubmit)} className='flex flex-col'>
-					<label htmlFor='firstName'>First Name</label>
-					<Controller
-						name='firstName'
-						control={control}
-						defaultValue=''
-						render={({ field }) => (
-							<input {...field} type='text' id='firstName' />
-						)}
-					/>
-					{errors.firstName && (
-						<p>'First name must be between 3 and 8 characters'</p>
-					)}
-
-					<label htmlFor='lastName'>Last Name</label>
-					<Controller
-						name='lastName'
-						control={control}
-						defaultValue=''
-						render={({ field }) => (
-							<input {...field} type='text' id='lastName' />
-						)}
-					/>
-					{errors.lastName && (
-						<p>'Last name must be between 3 and 8 characters'</p>
-					)}
-
-					<DatePickerComponent
-						control={control}
-						label='Date of Birth'
-						name='birthDate'
-					/>
-					{errors.birthDate && <p>'Birth date is required'</p>}
-					<DatePickerComponent
-						control={control}
-						label='Start Date'
-						name='startDate'
-					/>
-					{errors.startDate && <p>'Start date is required'</p>}
-					<fieldset className='address'>
-						<legend>Address</legend>
-
-						<label htmlFor='street'>Street</label>
+		<>
+			<div className='mx-auto my-2 flex max-w-7xl flex-col items-center justify-center gap-4  p-12 font-times'>
+				<div className='text-3xl font-bold'>
+					<h1>HRnet</h1>
+				</div>
+				<div className='flex flex-col items-center justify-center gap-4'>
+					<a href='employee-list.html' className='text-blue-800 underline'>
+						View Current Employees
+					</a>
+					<h2 className='text-2xl font-bold'>Create Employee</h2>
+					<form
+						onSubmit={handleSubmit(onSubmit)}
+						className='mt-8 flex w-[300px] flex-col gap-4'>
+						<label htmlFor='firstName'>First Name</label>
 						<Controller
-							name='street'
+							name='firstName'
 							control={control}
 							defaultValue=''
 							render={({ field }) => (
-								<input {...field} type='text' id='street' />
+								<input
+									{...field}
+									type='text'
+									id='firstName'
+									className='w-2/3 rounded-sm border-[1px] border-black indent-1'
+								/>
 							)}
 						/>
-						{errors.street && <p>'Street is required'</p>}
+						{errors.firstName && (
+							<p>'First name must be between 3 and 8 characters'</p>
+						)}
 
-						<label htmlFor='city'>City</label>
+						<label htmlFor='lastName'>Last Name</label>
 						<Controller
-							name='city'
+							name='lastName'
 							control={control}
 							defaultValue=''
 							render={({ field }) => (
-								<input {...field} type='text' id='city' />
+								<input
+									{...field}
+									type='text'
+									id='lastName'
+									className='w-2/3 rounded-sm border-[1px] border-black indent-1'
+								/>
 							)}
 						/>
-						{errors.city && <p>'City is required'</p>}
+						{errors.lastName && (
+							<p>'Last name must be between 3 and 8 characters'</p>
+						)}
 
+						<DatePickerComponent
+							control={control}
+							label='Date of Birth'
+							name='birthDate'
+						/>
+						{errors.birthDate && <p>'Birth date is required'</p>}
+						<DatePickerComponent
+							control={control}
+							label='Start Date'
+							name='startDate'
+						/>
+						{errors.startDate && <p>'Start date is required'</p>}
+						<fieldset className='address flex flex-col gap-2 rounded-sm border-[1px] border-black p-6'>
+							<legend>Address</legend>
+
+							<label htmlFor='street'>Street</label>
+							<Controller
+								name='street'
+								control={control}
+								defaultValue=''
+								render={({ field }) => (
+									<input
+										{...field}
+										type='text'
+										id='street'
+										className='w-2/3 rounded-sm border-[1px] border-black indent-1'
+									/>
+								)}
+							/>
+							{errors.street && <p>'Street is required'</p>}
+
+							<label htmlFor='city'>City</label>
+							<Controller
+								name='city'
+								control={control}
+								defaultValue=''
+								render={({ field }) => (
+									<input
+										{...field}
+										type='text'
+										id='city'
+										className='w-2/3 rounded-sm border-[1px] border-black indent-1'
+									/>
+								)}
+							/>
+							{errors.city && <p>'City is required'</p>}
+
+							<SelectOptions
+								label='State'
+								name='state'
+								control={control}
+								options={stateOptions}
+							/>
+							{errors.state && <p>'State is required'</p>}
+
+							<label htmlFor='zipCode'>Zip Code</label>
+							<Controller
+								name='zipCode'
+								control={control}
+								defaultValue={''}
+								render={({ field }) => (
+									<input
+										{...field}
+										type='text'
+										id='zipCode'
+										className='w-2/3 rounded-sm border-[1px] border-black indent-1'
+									/>
+								)}
+							/>
+							{errors.zipCode && (
+								<p>Zip code must be a positive number</p>
+							)}
+						</fieldset>
 						<SelectOptions
-							label='State'
-							name='state'
+							label='Department'
+							name='department'
 							control={control}
-							options={stateOptions}
+							options={departmentOptions}
 						/>
-						{errors.state && <p>'State is required'</p>}
-
-						<label htmlFor='zipCode'>Zip Code</label>
-						<Controller
-							name='zipCode'
-							control={control}
-							defaultValue={""}
-							render={({ field }) => (
-								<input {...field} type='text' id='zipCode' />
-							)}
-						/>
-						{errors.zipCode && <p>Zip code must be a positive number</p>}
-					</fieldset>
-					<SelectOptions
-						label='Department'
-						name='department'
-						control={control}
-						options={departmentOptions}
-					/>
-					{errors.department && <p>'Department is required'</p>}
-
-					<button type='submit'>Save</button>
-				</form>
-				<div id='confirmation' className='modal'>
-					Employee Created!
+						{errors.department && <p>'Department is required'</p>}
+						<div className='flex w-full justify-center'>
+							<button
+								type='submit'
+								className='w-1/4 border-[1px] border-black bg-gray-100 text-sm'>
+								Save
+							</button>
+						</div>
+					</form>
 				</div>
 			</div>
-		</div>
+			<ModalWindow isOpen={isOpen} onClose={closeModal}>
+				<p>Employee Created!</p>
+			</ModalWindow>
+		</>
 	);
 };
 

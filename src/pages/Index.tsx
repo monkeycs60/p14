@@ -9,14 +9,21 @@ import 'react-ts-modal-cserizay/src/styles/modalWindow.css';
 import { ModalWindow } from 'react-ts-modal-cserizay/dist/cjs/components/ModalWindow';
 import { useState } from 'react';
 import { FormInputsTypes, FormSchema } from '../types/Form';
+import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
+import { setEmployeeInfo } from '../redux/employeeSlice';
 
 const Index = () => {
+	// modal logic
 	const [isOpen, setIsOpen] = useState(false);
 	const openModal = () => setIsOpen(true);
 	const closeModal = () => setIsOpen(false);
 
-	console.log(isOpen);
+	// redux logic
+	const dispatch = useAppDispatch();
+	const employeeInfo = useAppSelector((state) => state.user);
+	console.log('from redux', employeeInfo);
 
+	// react hook form logic
 	const {
 		handleSubmit,
 		control,
@@ -26,7 +33,7 @@ const Index = () => {
 	});
 
 	const onSubmit = (data: FormInputsTypes) => {
-		console.log(data);
+		dispatch(setEmployeeInfo(data));
 		openModal();
 	};
 
@@ -37,7 +44,7 @@ const Index = () => {
 					<h1>HRnet</h1>
 				</div>
 				<div className='flex flex-col items-center justify-center gap-4'>
-					<a href='employee-list.html' className='text-blue-800 underline'>
+					<a href={'/employee-list'} className='text-blue-800 underline'>
 						View Current Employees
 					</a>
 					<h2 className='text-2xl font-bold'>Create Employee</h2>

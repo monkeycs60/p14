@@ -25,6 +25,7 @@ const SelectOptions = ({
 			<Controller
 				name={name}
 				control={control}
+				defaultValue={options[0].value}
 				render={({ field }) => {
 					const handleOnChange = (option: OptionType | null) => {
 						field.onChange(option?.value);

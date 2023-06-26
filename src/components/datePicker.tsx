@@ -27,6 +27,7 @@ export const DatePickerComponent = ({
 						dateFormat='MM/dd/yyyy'
 						id={name}
 						className='w-2/3 rounded-sm border-[1px] border-black indent-1'
+						autoComplete='off'
 					/>
 				)}
 			/>

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useAppSelector } from '../../hooks/useRedux.tsx';
+import { useAppSelector } from '../hooks/useRedux.tsx';
 import { MaterialReactTable, type MRT_ColumnDef } from 'material-react-table';
 
 const TableContent = () => {
@@ -76,12 +76,10 @@ const TableContent = () => {
 			muiSearchTextFieldProps={{
 				fullWidth: true,
 			}}
-			muiTopToolbarProps={
-				{
+			muiTopToolbarProps={{
 				sx: {
 					// background: 'red',
 				},
-				
 			}}
 		/>
 	);

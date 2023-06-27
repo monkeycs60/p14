@@ -42,6 +42,11 @@ const SelectOptions = ({
 							onBlur={field.onBlur}
 							options={options}
 							inputId={name}
+							className={
+								name === 'state'
+									? 'null'
+									: 'w-[85%]'
+							}
 						/>
 					);
 				}}

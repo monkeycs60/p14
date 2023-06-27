@@ -32,7 +32,7 @@
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.14.0",
     "react-select": "^5.7.3",
-    "react-ts-modal-cserizay": "^1.2.1",
+    "react-ts-modal-cserizay": "^1.2.4",
     "redux-persist": "^6.0.0",
     "zod": "^3.21.4"
   },

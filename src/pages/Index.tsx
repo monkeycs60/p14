@@ -9,7 +9,7 @@ import 'react-ts-modal-cserizay/src/styles/modalWindow.css';
 import { ModalWindow } from 'react-ts-modal-cserizay/dist/cjs/components/ModalWindow';
 import { useState } from 'react';
 import { FormInputsTypes, FormSchema } from '../types/Form';
-import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
+import { useAppDispatch } from '../hooks/useRedux';
 import { setEmployeeInfo } from '../redux/employeeSlice';
 
 const Index = () => {
@@ -20,8 +20,6 @@ const Index = () => {
 
 	// redux logic
 	const dispatch = useAppDispatch();
-	const employeeInfo = useAppSelector((state) => state.user);
-	console.log('from redux', employeeInfo);
 
 	// react hook form logic
 	const {
@@ -100,7 +98,7 @@ const Index = () => {
 						/>
 						{errors.startDate && <p>'Start date is required'</p>}
 						<fieldset className='address flex flex-col gap-2 rounded-sm border-[1px] border-black p-6'>
-							<legend>Address</legend>
+							<legend className='px-1'>Address</legend>
 
 							<label htmlFor='street'>Street</label>
 							<Controller

@@ -2,8 +2,6 @@ import { useMemo } from 'react';
 import { useAppSelector } from '../../hooks/useRedux.tsx';
 import { MaterialReactTable, type MRT_ColumnDef } from 'material-react-table';
 
-
-
 const TableContent = () => {
 	const employeeInfo = useAppSelector((state) => state.user.employees);
 
@@ -64,6 +62,7 @@ const TableContent = () => {
 			enableColumnActions={false}
 			localization={{
 				noRecordsToDisplay: 'No data available in table',
+				search: 'Search the loop',
 			}}
 			enableColumnFilters={false}
 			enableFullScreenToggle={false}
@@ -74,11 +73,16 @@ const TableContent = () => {
 				rowsPerPageOptions: [10, 25, 50, 100],
 			}}
 			positionPagination='top'
-			muiSearchTextFieldProps={
+			muiSearchTextFieldProps={{
+				fullWidth: true,
+			}}
+			muiTopToolbarProps={
 				{
-					fullWidth: true,
-				}
-			}
+				sx: {
+					// background: 'red',
+				},
+				
+			}}
 		/>
 	);
 };

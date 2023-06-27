@@ -1,6 +1,6 @@
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { DatePickerComponent } from '../components/DatePicker';
+import { DatePickerComponent } from '../components/DatePickerComponent';
 import 'react-datepicker/dist/react-datepicker.css';
 import SelectOptions from '../components/SelectOptions';
 import { departmentOptions } from '../lib/departmentOptions';

@@ -6,11 +6,11 @@ import './index.css';
 import { Providers } from './redux/provider.tsx';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-	<React.StrictMode>
+	// <React.StrictMode>
 		<BrowserRouter>
 			<Providers>
 				<App />
 			</Providers>
 		</BrowserRouter>
-	</React.StrictMode>
+	// </React.StrictMode>
 );

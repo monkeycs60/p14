@@ -7,10 +7,10 @@ import { Providers } from './redux/provider.tsx';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 	<React.StrictMode>
-		<Providers>
-			<BrowserRouter>
+		<BrowserRouter>
+			<Providers>
 				<App />
-			</BrowserRouter>
-		</Providers>
+			</Providers>
+		</BrowserRouter>
 	</React.StrictMode>
 );

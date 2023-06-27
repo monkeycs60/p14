@@ -19,11 +19,9 @@ export const FormSchema = z
 			.refine((value) => value.trim().length !== 0, 'Last name is required'),
 		birthDate: z
 			.date()
-            .nullable()
 			.refine((value) => value !== undefined, 'Birth date is required'),
 		startDate: z
 			.date()
-            .nullable()
 			.refine((value) => value !== undefined, 'Start date is required'),
 		street: z.string().nonempty(),
 		city: z.string().nonempty(),

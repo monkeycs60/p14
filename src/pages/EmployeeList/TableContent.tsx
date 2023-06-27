@@ -2,6 +2,8 @@ import { useMemo } from 'react';
 import { useAppSelector } from '../../hooks/useRedux.tsx';
 import { MaterialReactTable, type MRT_ColumnDef } from 'material-react-table';
 
+
+
 const TableContent = () => {
 	const employeeInfo = useAppSelector((state) => state.user.employees);
 
@@ -10,47 +12,47 @@ const TableContent = () => {
 			{
 				accessorKey: 'firstName', //access nested data with dot notation
 				header: 'First Name',
-				size: 150,
+				size: 100,
 			},
 			{
 				accessorKey: 'lastName',
 				header: 'Last Name',
-				size: 150,
+				size: 100,
 			},
 			{
-				accessorKey: 'startDate', //normal accessorKey
+				accessorKey: 'startDateModified', //normal accessorKey
 				header: 'Start Date',
-				size: 200,
+				size: 150,
 			},
 			{
 				accessorKey: 'department',
 				header: 'Department',
-				size: 150,
+				size: 100,
 			},
 			{
-				accessorKey: 'birthDate',
+				accessorKey: 'birthDateModified',
 				header: 'Date Of Birth',
-				size: 150,
+				size: 100,
 			},
 			{
 				accessorKey: 'street',
 				header: 'Street',
-				size: 150,
+				size: 100,
 			},
 			{
 				accessorKey: 'city',
 				header: 'City',
-				size: 150,
+				size: 100,
 			},
 			{
 				accessorKey: 'state',
 				header: 'State',
-				size: 150,
+				size: 100,
 			},
 			{
 				accessorKey: 'zipCode',
 				header: 'Zip',
-				size: 150,
+				size: 100,
 			},
 		],
 		[]
@@ -67,7 +69,16 @@ const TableContent = () => {
 			enableFullScreenToggle={false}
 			enableHiding={false}
 			enableDensityToggle={false}
-            enableGlobalFilterModes={true}
+			enableGlobalFilterModes={true}
+			muiTablePaginationProps={{
+				rowsPerPageOptions: [10, 25, 50, 100],
+			}}
+			positionPagination='top'
+			muiSearchTextFieldProps={
+				{
+					fullWidth: true,
+				}
+			}
 		/>
 	);
 };

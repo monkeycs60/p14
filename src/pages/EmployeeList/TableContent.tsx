@@ -1,7 +1,6 @@
 import { useMemo } from 'react';
 import { useAppSelector } from '../../hooks/useRedux.tsx';
 import { MaterialReactTable, type MRT_ColumnDef } from 'material-react-table';
-import { formatDate } from '../../lib/formatDate.ts';
 
 const TableContent = () => {
 	const employeeInfo = useAppSelector((state) => state.user.employees);

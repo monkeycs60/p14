@@ -1,59 +1,62 @@
 import { useMemo } from 'react';
 import { useAppSelector } from '../hooks/useRedux.tsx';
 import { MaterialReactTable, type MRT_ColumnDef } from 'material-react-table';
+import { useResponsiveTable } from '../hooks/useResponsiveTable.tsx';
 
 const TableContent = () => {
 	const employeeInfo = useAppSelector((state) => state.user.employees);
+
+	const { columnSize, fontSize, titleFontSize, isMobile } = useResponsiveTable();
 
 	const columns = useMemo<MRT_ColumnDef[]>(
 		() => [
 			{
 				accessorKey: 'firstName', //access nested data with dot notation
 				header: 'First Name',
-				size: 100,
+				size: columnSize,
 			},
 			{
 				accessorKey: 'lastName',
 				header: 'Last Name',
-				size: 100,
+				size: columnSize,
 			},
 			{
 				accessorKey: 'startDateModified', //normal accessorKey
 				header: 'Start Date',
-				size: 150,
+				size: columnSize * 1.5,
 			},
 			{
 				accessorKey: 'department',
 				header: 'Department',
-				size: 100,
+				size: columnSize,
 			},
 			{
 				accessorKey: 'birthDateModified',
 				header: 'Date Of Birth',
-				size: 100,
+				size: columnSize,
 			},
 			{
 				accessorKey: 'street',
 				header: 'Street',
-				size: 100,
+				size: columnSize,
 			},
 			{
 				accessorKey: 'city',
 				header: 'City',
-				size: 100,
+				size: columnSize,
 			},
 			{
 				accessorKey: 'state',
 				header: 'State',
-				size: 100,
+				size: columnSize,
 			},
 			{
 				accessorKey: 'zipCode',
 				header: 'Zip',
-				size: 100,
+				size: columnSize,
 			},
 		],
-		[]
+		[columnSize]
 	);
 	return (
 		<MaterialReactTable
@@ -62,7 +65,7 @@ const TableContent = () => {
 			enableColumnActions={false}
 			localization={{
 				noRecordsToDisplay: 'No data available in table',
-				search: 'Search the loop',
+				search: 'Search among records',
 			}}
 			enableColumnFilters={false}
 			enableFullScreenToggle={false}
@@ -71,15 +74,36 @@ const TableContent = () => {
 			enableGlobalFilterModes={true}
 			muiTablePaginationProps={{
 				rowsPerPageOptions: [10, 25, 50, 100],
+				labelRowsPerPage: 'Show per page',
+				sx: {},
+				showFirstButton: !isMobile,
+				showLastButton: !isMobile,
 			}}
-			positionPagination='top'
+			positionPagination='bottom'
+			positionGlobalFilter='left'
 			muiSearchTextFieldProps={{
 				fullWidth: true,
+				variant: 'outlined',
 			}}
-			muiTopToolbarProps={{
+			muiTableBodyRowProps={{
 				sx: {
-					// background: 'red',
+					'&:nth-of-type(odd)': {
+						backgroundColor: 'lightgray',
+					},
 				},
+			}}
+			muiTableBodyCellProps={{
+				sx: {
+					fontSize: fontSize,
+				},
+			}}
+			muiTableHeadCellProps={{
+				sx: {
+					fontSize: titleFontSize,
+				},
+			}}
+			muiBottomToolbarProps={{
+				sx: {},
 			}}
 		/>
 	);

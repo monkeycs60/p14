@@ -6,6 +6,9 @@ export default {
 			fontFamily: {
 				times: ['"Times New Roman"', 'serif'],
 			},
+			screens: {
+				'3xl': '1740px',
+			},
 		},
 	},
 	plugins: [],

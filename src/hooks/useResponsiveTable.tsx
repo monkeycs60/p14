@@ -28,7 +28,7 @@ export const useResponsiveTable = (): ResponsiveValues => {
 		fontSize = '0.5rem';
 		titleFontSize = '0.6rem';
         isMobile = true;
-	} else if (viewportWidth < 1700) {
+	} else if (viewportWidth < 1740) {
 		columnSize = 80;
 		fontSize = '0.8rem';
 		titleFontSize = '1rem';

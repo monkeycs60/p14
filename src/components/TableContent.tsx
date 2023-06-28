@@ -6,7 +6,8 @@ import { useResponsiveTable } from '../hooks/useResponsiveTable.tsx';
 const TableContent = () => {
 	const employeeInfo = useAppSelector((state) => state.user.employees);
 
-	const { columnSize, fontSize, titleFontSize, isMobile } = useResponsiveTable();
+	const { columnSize, fontSize, titleFontSize, isMobile } =
+		useResponsiveTable();
 
 	const columns = useMemo<MRT_ColumnDef[]>(
 		() => [
@@ -78,6 +79,11 @@ const TableContent = () => {
 				sx: {},
 				showFirstButton: !isMobile,
 				showLastButton: !isMobile,
+				labelDisplayedRows(paginationInfo) {
+					if (!isMobile)
+						return `Display ${paginationInfo.from} - ${paginationInfo.to} of ${paginationInfo.count} entries`;
+					else return `${paginationInfo.from} - ${paginationInfo.to}`;
+				},
 			}}
 			positionPagination='bottom'
 			positionGlobalFilter='left'

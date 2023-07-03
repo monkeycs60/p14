@@ -77,12 +77,18 @@ const TableContent = () => {
 				rowsPerPageOptions: [10, 25, 50, 100],
 				labelRowsPerPage: 'Show per page',
 				sx: {},
+				count: employeeInfo.length,
 				showFirstButton: !isMobile,
 				showLastButton: !isMobile,
 				labelDisplayedRows(paginationInfo) {
 					if (!isMobile)
-						return `Display ${paginationInfo.from} - ${paginationInfo.to} of ${paginationInfo.count} entries`;
-					else return `${paginationInfo.from} - ${paginationInfo.to}`;
+						return `Display ${paginationInfo.from} - ${
+							paginationInfo.to
+						} of ${paginationInfo.count} entries |  
+						Page ${paginationInfo.page + 1}/${paginationInfo.count % 10}`;
+					else return `Page ${paginationInfo.page + 1}/${
+						paginationInfo.count % 10
+					}`;
 				},
 			}}
 			positionPagination='bottom'

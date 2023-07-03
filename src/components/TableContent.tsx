@@ -1,9 +1,12 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useAppSelector } from '../hooks/useRedux.tsx';
 import { MaterialReactTable, type MRT_ColumnDef } from 'material-react-table';
 import { useResponsiveTable } from '../hooks/useResponsiveTable.tsx';
 
 const TableContent = () => {
+	const [rowsPerPage, setRowsPerPage] = useState<number>(10);
+	const rowsPerPageOptions: number[] = [10, 25, 50, 100];
+
 	const employeeInfo = useAppSelector((state) => state.user.employees);
 
 	const { columnSize, fontSize, titleFontSize, isMobile } =
@@ -75,20 +78,22 @@ const TableContent = () => {
 			enableGlobalFilterModes={true}
 			muiTablePaginationProps={{
 				rowsPerPageOptions: [10, 25, 50, 100],
+				onRowsPerPageChange: (event) =>
+					setRowsPerPage(Number(event.target.value)),
 				labelRowsPerPage: 'Show per page',
 				sx: {},
 				count: employeeInfo.length,
 				showFirstButton: !isMobile,
 				showLastButton: !isMobile,
 				labelDisplayedRows(paginationInfo) {
+					const totalPages = Math.ceil(paginationInfo.count / rowsPerPage);
+
 					if (!isMobile)
 						return `Display ${paginationInfo.from} - ${
 							paginationInfo.to
 						} of ${paginationInfo.count} entries |  
-						Page ${paginationInfo.page + 1}/${paginationInfo.count % 10}`;
-					else return `Page ${paginationInfo.page + 1}/${
-						paginationInfo.count % 10
-					}`;
+						 Page ${paginationInfo.page + 1}/${totalPages}`;
+					else return `Page ${paginationInfo.page + 1}/${totalPages}`;
 				},
 			}}
 			positionPagination='bottom'
